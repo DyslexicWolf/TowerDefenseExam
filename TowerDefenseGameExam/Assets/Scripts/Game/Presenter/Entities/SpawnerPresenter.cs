@@ -35,6 +35,8 @@ namespace TowerDefense.Presenter
             {
                 presenter.Model = model;
                 model.AttackGoal += presenter.Attack_Goal;
+                model.IdleInPlace += presenter.Idle_Inplace;
+                model.WalkToGoal += presenter.Walk_ToGoal;
                 EnemyPresenters.Add(presenter);
             }
         }

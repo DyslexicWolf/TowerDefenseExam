@@ -16,6 +16,8 @@ namespace TowerDefense.Model
         public StateMachine StateMachine { get; private set; }
 
         public EventHandler AttackGoal;
+        public EventHandler WalkToGoal;
+        public EventHandler IdleInPlace;
 
         public ICoordinate NextPosition
         {
@@ -50,6 +52,26 @@ namespace TowerDefense.Model
         public void Attack()
         {
             OnAttackGoal();
+        }
+
+        public void Walk()
+        {
+            OnWalkToGoal();
+        }
+
+        public void Idle()
+        {
+            OnIdleInPlace();
+        }
+
+        protected virtual void OnIdleInPlace()
+        {
+            IdleInPlace?.Invoke(this, EventArgs.Empty);
+        }
+
+        protected virtual void OnWalkToGoal()
+        {
+            WalkToGoal?.Invoke(this, EventArgs.Empty);
         }
 
         protected virtual void OnAttackGoal()

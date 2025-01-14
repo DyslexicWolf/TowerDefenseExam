@@ -59,5 +59,15 @@ namespace TowerDefense.Presenter
         {
             _animator.SetTrigger("Attack");
         }
+
+        public void Idle_Inplace(object sender, EventArgs e)
+        {
+            _animator.SetTrigger("Idle");
+        }
+
+        public void Walk_ToGoal(object sender, EventArgs e)
+        {
+            _animator.SetTrigger("Walk");
+        }
     }
 }

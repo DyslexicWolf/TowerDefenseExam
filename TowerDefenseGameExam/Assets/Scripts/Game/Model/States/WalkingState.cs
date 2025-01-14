@@ -18,7 +18,7 @@ namespace TowerDefense.Model
 
         public void OnEnter()
         {
-            
+           
         }
 
         public void OnExit()
@@ -28,6 +28,7 @@ namespace TowerDefense.Model
 
         public void Update(float deltaTime)
         {
+            _enemy.Walk();
             if (_pathToGoal.Count > 1 && _enemy.NextPosition == _pathToGoal[0].Position)
             {
                 _enemy.NextPosition = _pathToGoal[1].Position;

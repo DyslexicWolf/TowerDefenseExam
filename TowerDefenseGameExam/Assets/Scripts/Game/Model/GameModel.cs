@@ -170,7 +170,6 @@ namespace TowerDefense.Model
             var roadblock = new RoadblockModel(cell);
             cell.PlacePlaceableObjectModel(roadblock);
             Roadblocks.Add(roadblock);
-            //AddWatchedCells(roadblock.WatchedCells);
             OnCreatedRoadblock(roadblock);
         }
 
@@ -250,15 +249,23 @@ namespace TowerDefense.Model
                         CommandHistory.ExecuteCommand(new DestroyTowerCommand(_totalTime, cell), this);
                     }
                 }
-                else if(cell.CellType == CellType.Road)
+                else
                 {
-                    if (cell.IsEmpty)
+                    if (cell.IsEmpty && cell.CellType == CellType.Road)
                     {
                         CommandHistory.ExecuteCommand(new CreateRoadblockCommand(_totalTime, cell), this);
+                        cell.CellType = CellType.Grass;
+                        FindPath(Map.FindTilesOfType(CellType.Road));
+                        foreach(EnemyModel enemy in Enemies)
+                        {
+                            enemy.StateMachine.MoveToState(new IdleState(enemy));
+                        }
                     }
-                    else
+                    else if(!cell.IsEmpty && cell.CellType == CellType.Grass)
                     {
-                        CommandHistory.ExecuteCommand(new DestroyTowerCommand(_totalTime, cell), this);
+                        CommandHistory.ExecuteCommand(new DestroyRoadblockCommand(_totalTime, cell), this);
+                        cell.CellType = CellType.Road;
+                        FindPath(Map.FindTilesOfType(CellType.Road));
                     }
                 }
             }

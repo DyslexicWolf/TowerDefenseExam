@@ -16,10 +16,7 @@ namespace TowerDefense.Presenter
         protected override void Property_Changed(object sender, PropertyChangedEventArgs e)
         {
             throw new NotImplementedException();
-            //if (e.PropertyName == nameof(TowerModel.ShotsFired))
-            //{
-            //    StartCoroutine(ShootAnimation());
-            //}
+            
         }
     }
 }
