@@ -1,7 +1,7 @@
 <engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <engine:VisualElement style="flex-grow: 1; margin-top: 50px; margin-right: 0; margin-bottom: 0; margin-left: 50px; background-color: rgb(178, 208, 255); align-items: flex-start; align-content: auto; justify-content: flex-start; width: 30%; height: 30%; align-self: flex-start; max-height: 30%;">
-        <engine:Label text="Tower Defense Stats" style="font-size: 30px; margin-left: 40px; margin-top: 31px; -unity-font-style: bold; margin-bottom: 23px;" />
-        <engine:Label text="Goal Health: " name="HealthText" style="margin-left: 40px; font-size: 25px; -unity-font-style: bold; -unity-text-align: upper-left;" />
-        <engine:Label text="Enemies:" name="EnemiesText" style="margin-left: 40px; font-size: 25px; -unity-font-style: bold; -unity-text-align: upper-left;" />
-    </engine:VisualElement>
+    <engine:Label text="Platform Defense Stats" name="PlaformDefenseStats" style="margin-left: 40px; font-size: 25px; -unity-font-style: bold; -unity-text-align: upper-left;" />
+    <engine:Label text="Goal Health: " name="GoalHealth" style="margin-left: 40px; font-size: 25px; -unity-font-style: normal; -unity-text-align: upper-left;" />
+    <engine:Label text="Number of enemies:" name="NumberOfEnemies" style="margin-left: 40px; font-size: 25px; -unity-font-style: normal; -unity-text-align: upper-left;" />
+    <engine:Label text="Total enemy health:" name="TotalEnemyHealth" style="margin-left: 40px; font-size: 25px; -unity-font-style: normal; -unity-text-align: upper-left;" />
+    <engine:Label text="Time:" name="Time" style="margin-left: 40px; font-size: 25px; -unity-font-style: normal; -unity-text-align: upper-left;" />
 </engine:UXML>

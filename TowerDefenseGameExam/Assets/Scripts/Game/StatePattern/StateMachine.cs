@@ -4,26 +4,26 @@ namespace StatePattern
 {
     public class StateMachine
     {
-        private IState _currentState;
+        public IState CurrentState;
 
         public StateMachine(IState startState)
         {
-            _currentState = startState;
-            _currentState.OnEnter();
+            CurrentState = startState;
+            CurrentState.OnEnter();
         }
 
         public void Update(float deltaTime)
         {
-            _currentState.Update(deltaTime);
+            CurrentState.Update(deltaTime);
         }
 
         public void MoveToState(IState newState)
         {
-            if (newState != _currentState)
+            if (newState != CurrentState)
             {
-                _currentState.OnExit();
-                _currentState = newState;
-                _currentState.OnEnter();
+                CurrentState.OnExit();
+                CurrentState = newState;
+                CurrentState.OnEnter();
             }            
         }
     }

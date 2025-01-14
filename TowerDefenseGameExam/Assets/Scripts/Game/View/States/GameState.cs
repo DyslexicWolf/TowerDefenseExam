@@ -39,36 +39,36 @@ namespace TowerDefense.View.States
 
             FindGamePresenter();
             CheckIfGameOver();
-            UpdateGameUI(deltaTime);
+            //UpdateGameUI(deltaTime);
         }
 
-        private void UpdateGameUI(float deltaTime)
-        {
-            FindGameUI();
-            UpdateGameUI();            
-        }
+        //private void UpdateGameUI(float deltaTime)
+        //{
+        //    FindGameUI();
+        //    UpdateGameUI();            
+        //}
 
-        private void UpdateGameUI()
-        {
-            if (GamePresenter == null) return;
-            if (!GamePresenter.IsGameOver)
-            {
-                _gameUI.rootVisualElement.Q<Label>("HealthText").text
-                = $"Goal health: {GamePresenter.Model.Goal.Health}";
+        //private void UpdateGameUI()
+        //{
+        //    if (GamePresenter == null) return;
+        //    if (!GamePresenter.IsGameOver)
+        //    {
+        //        _gameUI.rootVisualElement.Q<Label>("HealthText").text
+        //        = $"Goal health: {GamePresenter.Model.Goal.Health}";
 
-                _gameUI.rootVisualElement.Q<Label>("EnemiesText").text
-                    = $"Enemies: {GamePresenter.Model.Enemies.Count}";
-            }            
-        }
+        //        _gameUI.rootVisualElement.Q<Label>("EnemiesText").text
+        //            = $"Enemies: {GamePresenter.Model.Enemies.Count}";
+        //    }            
+        //}
 
-        private void FindGameUI()
-        {
-            if (!_gameUI)
-            {
-                var ui = GameObject.Find("GameUI");
-                _gameUI = ui.GetComponent<UIDocument>();
-            }
-        }
+        //private void FindGameUI()
+        //{
+        //    if (!_gameUI)
+        //    {
+        //        var ui = GameObject.Find("GameUI");
+        //        _gameUI = ui.GetComponent<UIDocument>();
+        //    }
+        //}
 
         private void CheckIfGameOver()
         {

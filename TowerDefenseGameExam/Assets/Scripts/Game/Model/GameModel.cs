@@ -43,7 +43,7 @@ namespace TowerDefense.Model
 
         public int WantedEnemies = 0;
         private float _towerTimer, _totalTime;
-        private int _spawnedEnemies;
+        public int SpawnedEnemies;
 
         public bool IsGameOver { get; private set; }
 
@@ -79,7 +79,8 @@ namespace TowerDefense.Model
             RemoveInactiveEnemies();
             SpawnEnemies(deltaTime);
             UpdateTowers(deltaTime);
-            UpdateEnemies(deltaTime);            
+            UpdateEnemies(deltaTime);
+            
         }
 
         private void ReplayCommands(float deltaTime)
@@ -120,13 +121,13 @@ namespace TowerDefense.Model
 
         private void SpawnEnemies(float deltaTime)
         {
-            if (WantedEnemies > 0 && _spawnedEnemies != WantedEnemies)
+            if (WantedEnemies > 0 && SpawnedEnemies != WantedEnemies)
             {
                 _towerTimer += deltaTime;
                 if (_towerTimer >= 1)
                 {
                     Spawner.CreateEnemyModel(_pathToGoal);
-                    _spawnedEnemies++;
+                    SpawnedEnemies++;
                     _towerTimer = 0;
                 }
             }
@@ -224,6 +225,14 @@ namespace TowerDefense.Model
 
         public void FindPath(IEnumerable<CellModel> roadCells)
         {
+            //List<CellModel> adjustedRoadCells = roadCells.ToList();
+            //foreach (CellModel cell in adjustedRoadCells)
+            //{
+            //    if (!cell.IsEmpty)
+            //    {
+            //        adjustedRoadCells.Remove(cell);
+            //    }
+            //}
             _pathToGoal = new List<CellModel>();
             _pathFinder = new RecursivePathfinder<CellModel>(roadCells);
             _pathToGoal = _pathFinder.FindPath(Spawner.Cell, GoalCell);
@@ -255,21 +264,23 @@ namespace TowerDefense.Model
                     {
                         CommandHistory.ExecuteCommand(new CreateRoadblockCommand(_totalTime, cell), this);
                         cell.CellType = CellType.Grass;
-                        foreach(EnemyModel enemy in Enemies)
+                        FindPath(Map.FindTilesOfType(CellType.Road));
+                        foreach (EnemyModel enemy in Enemies)
                         {
                             enemy.StateMachine.MoveToState(new IdleState(enemy));
                         }
                     }
-                    else if(!cell.IsEmpty && cell.CellType == CellType.Grass)
+                    else if (!cell.IsEmpty && cell.CellType == CellType.Grass)
                     {
                         CommandHistory.ExecuteCommand(new DestroyRoadblockCommand(_totalTime, cell), this);
                         cell.CellType = CellType.Road;
-                        FindPath(Map.FindTilesOfType(CellType.Road));
                         foreach (EnemyModel enemy in Enemies)
                         {
+                            FindPath(Map.FindTilesOfType(CellType.Road));
                             enemy.StateMachine.MoveToState(new WalkingState(enemy, _pathToGoal));
                         }
                     }
+                    
                 }
             }
         }

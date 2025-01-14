@@ -11,7 +11,7 @@ namespace TowerDefense.Model
 
         public bool IsActive { get; set; } = true;
 
-        private int _health;
+        public int Health;
         public List<CellModel> PathToGoal = new List<CellModel>();
         public StateMachine StateMachine { get; private set; }
 
@@ -39,9 +39,9 @@ namespace TowerDefense.Model
         {            
             NextPosition = position;
             CurrentPosition = position;
-            _health = health;
+            Health = health;
             PathToGoal = pathToGoal;
-            StateMachine = new StateMachine(new WalkingState(this, PathToGoal));
+            StateMachine = new StateMachine(new WalkingState(this, pathToGoal));
         }
 
         public void SelfDestruct()
@@ -82,8 +82,8 @@ namespace TowerDefense.Model
 
         public void TakeDamage(int damage)
         {
-            _health -= damage;
-            if (_health <= 0)
+            Health -= damage;
+            if (Health <= 0)
             {
                 SelfDestruct();
             }
