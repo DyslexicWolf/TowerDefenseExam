@@ -22,12 +22,16 @@ namespace TowerDefense.Model
 
         public List<TowerModel> Towers { get; private set; } = new List<TowerModel>();
 
+        public List<RoadblockModel> Roadblocks { get; private set; } = new List<RoadblockModel>();
+
         public List<CellModel> WatchedCells { get; private set; } = new List<CellModel>();
 
         private RecursivePathfinder<CellModel> _pathFinder;
         private List<CellModel> _pathToGoal;
 
         public EventHandler<TowerModelEventArgs> CreatedTower;
+
+        public EventHandler<RoadblockModelEventArgs> CreatedRoadblock;
 
         public EventHandler CreatedGoal;
 
@@ -161,6 +165,17 @@ namespace TowerDefense.Model
             OnCreatedTower(tower);
         }
 
+        public void CreateRoadblock(CellModel cell)
+        {
+            var roadblock = new RoadblockModel(cell);
+            cell.PlacePlaceableObjectModel(roadblock);
+            Roadblocks.Add(roadblock);
+            //AddWatchedCells(roadblock.WatchedCells);
+            OnCreatedRoadblock(roadblock);
+        }
+
+        
+
         private void AddWatchedCells(List<CellModel> watchedCells)
         {
             foreach (var cell in watchedCells)
@@ -191,6 +206,11 @@ namespace TowerDefense.Model
         protected virtual void OnCreatedTower(TowerModel tower)
         {
             CreatedTower?.Invoke(this, new TowerModelEventArgs(tower));
+        }
+
+        private void OnCreatedRoadblock(RoadblockModel roadblock)
+        {
+            CreatedRoadblock?.Invoke(this, new RoadblockModelEventArgs(roadblock));
         }
 
         public void FindPath(IEnumerable<CellModel> roadCells)

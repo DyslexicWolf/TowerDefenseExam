@@ -2,12 +2,12 @@ using CommandPattern;
 using MapSystem.Model;
 using TowerDefense.Model;
 
-public class CreateTowerCommand : ITimedCommand<GameModel>
+public class CreateRoadblock : ITimedCommand<GameModel>
 {
     private readonly CellModel _cell;
     public float Time { get; }
 
-    public CreateTowerCommand(float time, CellModel cell)
+    public CreateRoadblock(float time, CellModel cell)
     {
         _cell = cell;
         Time = time;
