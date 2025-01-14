@@ -104,11 +104,13 @@ namespace TowerDefense.Presenter
 
         private void Created_Tower(object sender, TowerModelEventArgs e)
         {
+            Debug.Log("in created tower method");
             MakeTowerPresenter(e.TowerModel);
         }
 
         private void Created_Roadblock(object sender, RoadblockModelEventArgs e)
         {
+            Debug.Log("in created roadblock method");
             MakeRoadblockPresenter(e.RoadblockModel);
         }
 

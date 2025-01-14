@@ -250,6 +250,17 @@ namespace TowerDefense.Model
                         CommandHistory.ExecuteCommand(new DestroyTowerCommand(_totalTime, cell), this);
                     }
                 }
+                else if(cell.CellType == CellType.Road)
+                {
+                    if (cell.IsEmpty)
+                    {
+                        CommandHistory.ExecuteCommand(new CreateRoadblockCommand(_totalTime, cell), this);
+                    }
+                    else
+                    {
+                        CommandHistory.ExecuteCommand(new DestroyTowerCommand(_totalTime, cell), this);
+                    }
+                }
             }
         }
 
