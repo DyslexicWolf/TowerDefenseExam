@@ -12,7 +12,7 @@ namespace TowerDefense.Model
         public bool IsActive { get; set; } = true;
 
         private int _health;
-
+        public List<CellModel> PathToGoal = new List<CellModel>();
         public StateMachine StateMachine { get; private set; }
 
         public EventHandler AttackGoal;
@@ -40,7 +40,8 @@ namespace TowerDefense.Model
             NextPosition = position;
             CurrentPosition = position;
             _health = health;
-            StateMachine = new StateMachine(new WalkingState(this, pathToGoal));
+            PathToGoal = pathToGoal;
+            StateMachine = new StateMachine(new WalkingState(this, PathToGoal));
         }
 
         public void SelfDestruct()

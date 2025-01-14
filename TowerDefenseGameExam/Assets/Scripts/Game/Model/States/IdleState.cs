@@ -21,7 +21,6 @@ namespace TowerDefense.Model
 
         public void OnExit()
         {
-            throw new System.NotImplementedException();
         }
 
         public void Update(float deltaTime)

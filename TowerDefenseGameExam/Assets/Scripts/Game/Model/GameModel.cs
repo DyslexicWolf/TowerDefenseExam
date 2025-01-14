@@ -255,7 +255,6 @@ namespace TowerDefense.Model
                     {
                         CommandHistory.ExecuteCommand(new CreateRoadblockCommand(_totalTime, cell), this);
                         cell.CellType = CellType.Grass;
-                        FindPath(Map.FindTilesOfType(CellType.Road));
                         foreach(EnemyModel enemy in Enemies)
                         {
                             enemy.StateMachine.MoveToState(new IdleState(enemy));
@@ -266,6 +265,10 @@ namespace TowerDefense.Model
                         CommandHistory.ExecuteCommand(new DestroyRoadblockCommand(_totalTime, cell), this);
                         cell.CellType = CellType.Road;
                         FindPath(Map.FindTilesOfType(CellType.Road));
+                        foreach (EnemyModel enemy in Enemies)
+                        {
+                            enemy.StateMachine.MoveToState(new WalkingState(enemy, _pathToGoal));
+                        }
                     }
                 }
             }
