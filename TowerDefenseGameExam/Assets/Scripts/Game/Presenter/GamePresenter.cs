@@ -17,7 +17,7 @@ namespace TowerDefense.Presenter
         private SpawnerPresenter _spawner;
 
         [SerializeField]
-        private GameObject _enemyPrefab, _towerPrefab, _goalPrefab;
+        private GameObject _enemyPrefab, _towerPrefab, _goalPrefab, _roadblockPrefab;
 
         [SerializeField]
         private Camera _camera;
@@ -43,6 +43,7 @@ namespace TowerDefense.Presenter
             //subscribe to events
             Model.CreatedTower += Created_Tower;
             Model.CreatedGoal += Created_Goal;
+            Model.CreatedRoadblock += Created_Roadblock;
 
             //create spawner
             _spawner = gameObject.AddComponent<SpawnerPresenter>();
@@ -51,7 +52,9 @@ namespace TowerDefense.Presenter
 
             //create entities
             Model.CreateGoal(_goalHealth);
-        }        
+        }
+
+        
 
         void Update()
         {
@@ -102,6 +105,27 @@ namespace TowerDefense.Presenter
         private void Created_Tower(object sender, TowerModelEventArgs e)
         {
             MakeTowerPresenter(e.TowerModel);
+        }
+
+        private void Created_Roadblock(object sender, RoadblockModelEventArgs e)
+        {
+            MakeRoadblockPresenter(e.RoadblockModel);
+        }
+
+        private void MakeRoadblockPresenter(RoadblockModel roadblock)
+        {
+            //convert position
+            var cellBelowPos = roadblock.CellBelow.Position;
+            Vector3 newRoadblockPos = _hexConverter.ConvertCoordinateToVector3(cellBelowPos);
+
+            //create tower
+            var newRoadblock = Instantiate(_roadblockPrefab, newRoadblockPos, Quaternion.identity);
+
+            //link to model
+            var newRoadblockPresenter = newRoadblock.GetComponent<RoadblockPresenter>();
+            newRoadblockPresenter.Model = roadblock;
+
+            ParentToCellBelow(newRoadblock);
         }
 
         private void MakeTowerPresenter(TowerModel tower)
