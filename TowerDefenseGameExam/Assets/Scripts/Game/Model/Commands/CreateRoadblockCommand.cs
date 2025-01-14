@@ -2,12 +2,12 @@ using CommandPattern;
 using MapSystem.Model;
 using TowerDefense.Model;
 
-public class DestroyTowerCommand : ITimedCommand<GameModel>
+public class CreateRoadblockCommand : ITimedCommand<GameModel>
 {
     private readonly CellModel _cell;
     public float Time { get; }
 
-    public DestroyTowerCommand(float time, CellModel cell)
+    public CreateRoadblockCommand(float time, CellModel cell)
     {
         _cell = cell;
         Time = time;
@@ -15,7 +15,7 @@ public class DestroyTowerCommand : ITimedCommand<GameModel>
 
     public void Execute(GameModel context)
     {
-        context.DestroyTower(_cell);
+        context.CreateRoadblock(_cell);
     }
 
     public void Undo(GameModel context)

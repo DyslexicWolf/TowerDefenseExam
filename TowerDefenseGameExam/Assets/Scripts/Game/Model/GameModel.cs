@@ -198,6 +198,16 @@ namespace TowerDefense.Model
             }
         }
 
+        public void DestoryRoadblock(CellModel cell)
+        {
+            if (cell.PlacedObject is RoadblockModel roadblock)
+            {
+                cell.RemovePlacedObjectModel();
+                Roadblocks.Remove(roadblock);
+                roadblock.DestroyPresenter();
+            }
+        }
+
         private void ClearWatchedCells(List<CellModel> watchedCells)
         {
             WatchedCells.RemoveAll(item => watchedCells.Contains(item));
