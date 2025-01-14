@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 using TowerDefense.View;
 using TowerDefense.View.States;
 
-public class UIPresenter : MonoBehaviour
+public class UILogic : MonoBehaviour
 {
     public int numberOfEnemies;
     public int goalHealth;
