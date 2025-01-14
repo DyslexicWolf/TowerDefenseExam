@@ -118,14 +118,14 @@ namespace TowerDefense.Presenter
             var cellBelowPos = roadblock.CellBelow.Position;
             Vector3 newRoadblockPos = _hexConverter.ConvertCoordinateToVector3(cellBelowPos);
 
-            //create tower
+            //create roadblock
             var newRoadblock = Instantiate(_roadblockPrefab, newRoadblockPos, Quaternion.identity);
 
             //link to model
             var newRoadblockPresenter = newRoadblock.GetComponent<RoadblockPresenter>();
             newRoadblockPresenter.Model = roadblock;
 
-            ParentToCellBelow(newRoadblock);
+            RoadblockParentToCellBelow(newRoadblock);
         }
 
         private void MakeTowerPresenter(TowerModel tower)
@@ -141,10 +141,23 @@ namespace TowerDefense.Presenter
             var newTowerPresenter = newTower.GetComponent<TowerPresenter>();
             newTowerPresenter.Model = tower;
 
-            ParentToCellBelow(newTower);
+            TowerParentToCellBelow(newTower);
         }
 
-        private void ParentToCellBelow(GameObject tower)
+        private void RoadblockParentToCellBelow(GameObject roadblock)
+        {
+            var roadblockPresenter = roadblock.GetComponent<RoadblockPresenter>();
+            var cellBelow = roadblockPresenter.Model.CellBelow;
+            var roadblockPos = cellBelow.Position;
+
+            //icky but there's no other way to get the tile gameObject
+            var name = $"{cellBelow.CellType}Tile-{cellBelow.Position}";
+            var cellTile = GameObject.Find(name);
+
+            roadblock.transform.SetParent(cellTile.transform);
+        }
+
+        private void TowerParentToCellBelow(GameObject tower)
         {
             var towerPresenter = tower.GetComponent<TowerPresenter>();
             var cellBelow = towerPresenter.Model.CellBelow;

@@ -4497,6 +4497,7 @@ MonoBehaviour:
   _enemyPrefab: {fileID: 551444542339450645, guid: 5bd94f4a5af2834459f6669b385b31d0, type: 3}
   _towerPrefab: {fileID: 5750485556716867303, guid: 75c0b3fdf72bb8f43a32be7fc3784e35, type: 3}
   _goalPrefab: {fileID: 1093944227675377599, guid: 7bade4c30ec42134e812624a7ac1ebf8, type: 3}
+  _roadblockPrefab: {fileID: 509150629062884298, guid: 71e1e1b752712274a8030e13fe8d66f0, type: 3}
   _camera: {fileID: 330585545}
   _hoveredMaterial: {fileID: 2100000, guid: a36ebeda916113748aad083aa7f06bcf, type: 2}
   _enemyHealth: 100
